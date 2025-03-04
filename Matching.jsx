@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Card, CardContent } from "@/components/card";
 import { Button } from "@/components/button";
 
@@ -37,8 +36,9 @@ export default function MemoryGame() {
 
   const fetchCards = async () => {
     try {
-      const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=6");
-      const fetchedCards = response.data.results.map((item, index) => ({
+      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=6");
+      const data = await response.json();
+      const fetchedCards = data.results.map((item, index) => ({
         id: index,
         name: item.name,
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`,
